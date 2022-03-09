@@ -18,35 +18,51 @@ DROP TABLE IF EXISTS "HireInfo" CASCADE;
 DROP TABLE IF EXISTS "House" CASCADE;
 
 CREATE TABLE "SubContractor" (
-  sid SERIAL PRIMARY KEY,
-  s_lname varchar(30) NOT NULL,
-  s_fname varchar(30) NOT NULL,
-  salary int NOT NULL
+	sid SERIAL PRIMARY KEY,
+	s_lname VARCHAR(30) NOT NULL,
+	s_fname VARCHAR(30) NOT NULL,
+	salary INT NOT NULL
 );
 
 CREATE TABLE "Builder" (
-  bid serial PRIMARY KEY,
-  b_lname varchar(30) NOT NULL,
-  b_fname varchar(30) NOT NULL,
-  license int NOT NULL
+	bid SERIAL PRIMARY KEY,
+	b_lname VARCHAR(30) NOT NULL,
+	b_fname VARCHAR(30) NOT NULL,
+	license INT NOT NULL
 );
 
 CREATE TABLE "Neighborhood" (
-  nid serial PRIMARY KEY,
-  n_name varchar(30) NOT NULL,
-  city varchar(30) NOT NULL,
+	nid SERIAL PRIMARY KEY,
+	n_name VARCHAR(30) NOT NULL,
+	city VARCHAR(30) NOT NULL,
 );
 
 CREATE TABLE "HireInfo" (
-  "idAdmin" int PRIMARY KEY,
-  "NombreAdmin" varchar(15) NOT NULL,
-  "ContraseñaAdmin" varchar(8) NOT NULL
+	bid INT,
+	sid INT,
+	hire_date DATE NOT NULL,
+	CONSTRAINT "FK_HireInfo.bid"
+		FOREIGN KEY (bid)
+			REFERENCES "Builder"(bid),
+	CONSTRAINT "FK_HireInfo.sid"
+    	FOREIGN KEY (sid)
+      		REFERENCES "SubContractor"(sid),
+  	PRIMARY KEY (bid, sid)
 );
 
 CREATE TABLE "House" (
-  "idAdmin" int PRIMARY KEY,
-  "NombreAdmin" varchar(15) NOT NULL,
-  "ContraseñaAdmin" varchar(8) NOT NULL
+  	hid SERIAL PRIMARY KEY,
+  	h_name VARCHAR(30) NOT NULL,
+  	finish_date DATE NOT NULL,
+  	Price INT NOT NULL,
+  	bid INT,
+	nid INT,
+	CONSTRAINT "FK_House.bid"
+		FOREIGN KEY (bid)
+			REFERENCES "Builder"(bid),
+	CONSTRAINT "FK_House.nid"
+    	FOREIGN KEY (nid)
+      		REFERENCES "Neighborhood"(nid),
 );
 
 
