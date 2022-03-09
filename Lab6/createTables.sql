@@ -34,7 +34,7 @@ CREATE TABLE "Builder" (
 CREATE TABLE "Neighborhood" (
 	nid SERIAL PRIMARY KEY,
 	n_name VARCHAR(30) NOT NULL,
-	city VARCHAR(30) NOT NULL,
+	city VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE "HireInfo" (
@@ -62,7 +62,7 @@ CREATE TABLE "House" (
 			REFERENCES "Builder"(bid),
 	CONSTRAINT "FK_House.nid"
     	FOREIGN KEY (nid)
-      		REFERENCES "Neighborhood"(nid),
+      		REFERENCES "Neighborhood"(nid)
 );
 
 
